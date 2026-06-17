@@ -1,13 +1,7 @@
 #!/usr/bin/env python3
 """
-Right Code Draw API 调用脚本
-统一入口: https://www.right.codes/draw
+PPB Draw — AI 图片生成与带图对话（PPB 开发）
 鉴权: Authorization: Bearer sk-xxxxx
-
-官方文档:
-  - 总览: https://docs.right.codes/docs/rc_extension/draw/
-  - 图片生成: https://docs.right.codes/docs/rc_extension/draw/images-generations.html
-  - 带图对话: https://docs.right.codes/docs/rc_extension/draw/chat-completions.html
 """
 
 import argparse
@@ -36,7 +30,7 @@ def get_api_key(api_key_arg: str | None = None) -> str:
 
 
 def make_request(endpoint: str, payload: dict, api_key: str, timeout: int = 120) -> dict:
-    """发送 POST 请求到 Right Code API"""
+    """发送 POST 请求到 API"""
     url = f"{BASE_URL}/{endpoint.lstrip('/')}"
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
@@ -279,7 +273,7 @@ def cmd_chat(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Right Code Draw API CLI \u2014 \u56fe\u7247\u751f\u6210\u4e0e\u5e26\u56fe\u5bf9\u8bdd",
+        description="PPB Draw — AI 图片生成与带图对话（PPB 开发）",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 \u793a\u4f8b:
@@ -311,7 +305,7 @@ def main():
     parser.add_argument(
         "--api-key",
         default=None,
-        help="Right Code API Key（也可通过环境变量 RIGHTCODE_API_KEY 设置）",
+        help="API Key（也可通过环境变量 RIGHTCODE_API_KEY 设置）",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="\u5b50\u547d\u4ee4")
@@ -329,7 +323,7 @@ def main():
     gen_parser.add_argument("--ref-images", nargs="*", default=[], help="\u591a\u5f20\u53c2\u8003\u56fe\u8def\u5f84")
     gen_parser.add_argument("--response-format", default="url", choices=["url", "b64_json"], help="\u54cd\u5e94\u683c\u5f0f\uff08\u9ed8\u8ba4: url\uff09")
     gen_parser.add_argument("--output", "-o", default="output.png", help="\u8f93\u51fa\u6587\u4ef6\u8def\u5f84\uff08\u9ed8\u8ba4: output.png\uff09")
-    gen_parser.add_argument("--api-key", default=None, help="Right Code API Key\uff08\u4e5f\u53ef\u901a\u8fc7\u73af\u5883\u53d8\u91cf RIGHTCODE_API_KEY \u8bbe\u7f6e\uff09")
+    gen_parser.add_argument("--api-key", default=None, help="API Key\uff08\u4e5f\u53ef\u901a\u8fc7\u73af\u5883\u53d8\u91cf RIGHTCODE_API_KEY \u8bbe\u7f6e\uff09")
 
     # === chat 子命令 ===
     chat_parser = subparsers.add_parser("chat", help="\u5e26\u56fe\u5bf9\u8bdd (\u7eaf\u6587\u672c / \u591a\u6a21\u6001)")
@@ -338,7 +332,7 @@ def main():
     chat_parser.add_argument("--images", nargs="*", default=[], help="\u591a\u5f20\u56fe\u7247\u6587\u4ef6\u8def\u5f84")
     chat_parser.add_argument("--model", "-m", default="gemini-3.1-pro", help="\u6a21\u578b\u540d\u79f0\uff08\u9ed8\u8ba4: gemini-3.1-pro\uff09")
     chat_parser.add_argument("--stream", action="store_true", default=False, help="\u542f\u7528 SSE \u6d41\u5f0f\u8f93\u51fa")
-    chat_parser.add_argument("--api-key", default=None, help="Right Code API Key\uff08\u4e5f\u53ef\u901a\u8fc7\u73af\u5883\u53d8\u91cf RIGHTCODE_API_KEY \u8bbe\u7f6e\uff09")
+    chat_parser.add_argument("--api-key", default=None, help="API Key\uff08\u4e5f\u53ef\u901a\u8fc7\u73af\u5883\u53d8\u91cf RIGHTCODE_API_KEY \u8bbe\u7f6e\uff09")
 
     args = parser.parse_args()
 

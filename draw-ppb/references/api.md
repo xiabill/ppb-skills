@@ -1,11 +1,5 @@
-# Right Code Draw API Reference
+# PPB Draw API Reference
 
-> 官方文档：
-> - 总览：https://docs.right.codes/docs/rc_extension/draw/
-> - 图片生成：https://docs.right.codes/docs/rc_extension/draw/images-generations.html
-> - 带图对话：https://docs.right.codes/docs/rc_extension/draw/chat-completions.html
-> - 模型列表（后台）：https://docs.right.codes/docs/rc_quick_start/models.html
->
 > Base URL: `https://www.right.codes/draw`
 > Auth: `Authorization: Bearer sk-xxxxx`
 
@@ -29,7 +23,7 @@ Authorization: Bearer sk-xxxxx
 
 | 参数 | 类型 | 必填 | 默认值 | 说明 |
 |------|------|------|--------|------|
-| `model` | string | 是 | — | 图片生成模型名称。已知可用：`gpt-image-2`、`gpt-image-1`、`dall-e-3` 等。完整列表见 Right Code 后台"模型列表" |
+| `model` | string | 是 | — | 图片生成模型名称。已知可用：`gpt-image-2`、`gpt-image-1`、`dall-e-3` 等 |
 | `prompt` | string | 是 | — | 图片描述文本，英文/中文均可，建议详细描述以获得更好效果 |
 | `image` | array | 否 | — | 参考图列表，每个元素为 base64 data URL 或 HTTP(S) URL。用于图生图：以参考图为蓝本生成新图 |
 | `size` | string | 否 | — | 输出尺寸，格式 `宽x高`。常用：`1024x1024`（标准）、`2048x2048`（2K HD）、`4096x4096`（4K VIP）。直接填像素值 |
@@ -181,7 +175,7 @@ Authorization: Bearer sk-xxxxx
 
 | 参数 | 类型 | 必填 | 说明 |
 |------|------|------|------|
-| `model` | string | 是 | 模型名称。已知可用：`gemini-3.1-pro`、`gpt-4o`、`gemini-2.5-pro` 等。完整列表见 Right Code 后台"模型列表" |
+| `model` | string | 是 | 模型名称。已知可用：`gemini-3.1-pro`、`gpt-4o`、`gemini-2.5-pro` 等 |
 | `stream` | boolean | 是 | `true` 启用 SSE 流式输出；`false` 返回完整 JSON 响应 |
 | `messages` | array | 是 | 对话消息数组，每项包含 `role` 和 `content` 字段 |
 
@@ -429,16 +423,16 @@ Authorization: Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ### 模型管理
 
-- 模型列表在 Right Code 后台动态管理（后台 → 左侧面板 → 模型列表）
-- 可按需选择可用的端点查看模型名称和 BaseUrl
+- 模型列表在后台动态管理
+- 可按需选择可用的端点查看模型名称
 - 文档不静态列出模型，以实际后台显示为准
 
 ### 速率限制
 
-以 Right Code 后台实际限制为准。如遇 429，建议：
+以后台实际限制为准。如遇 429，建议：
 - 降低请求频率
 - 使用指数退避重试（1s → 2s → 4s → 8s ...）
-- 联系 Right Code 提升配额
+- 联系后台提升配额
 
 ### 超时建议
 

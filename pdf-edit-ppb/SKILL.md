@@ -200,7 +200,7 @@ pip install Pillow numpy scipy weasyprint python-docx pdfplumber
 
 本模块公章生成依赖 **draw-ppb** skill（位于 `skills/draw-ppb/`），通过 `https://www.right.codes/draw/v1/images/generations` 接口生成公章图片。
 
-### Right Code Draw API 配置
+### Draw API 配置
 
 - **Endpoint**: `https://www.right.codes/draw/v1/images/generations`
 - **Auth**: `Authorization: Bearer <RIGHTCODE_API_KEY>`
@@ -352,7 +352,7 @@ import json
 import urllib.request
 
 def generate_seal(company_name):
-    """通过 Right Code Draw API 生成单个公司公章，返回下载的图片路径。"""
+    """通过 Draw API 生成单个公司公章，返回下载的图片路径。"""
     api_key = os.environ.get("RIGHTCODE_API_KEY")
     if not api_key:
         raise ValueError("未设置 RIGHTCODE_API_KEY 环境变量")

@@ -1,24 +1,18 @@
 ---
 name: draw-ppb
-description: "Right Code 绘图 API skill。当用户需要生成图片、创建图像、AI绘画、文生图、图生图、参考图生成、4K超清输出、或进行带图提问的对话时使用。覆盖 /v1/images/generations（图片生成，支持参考图和4K）和 /v1/chat/completions（带图对话，支持多模态）两个接口。Trigger phrases: 生成图片, 画图, 文生图, AI绘画, 创建图像, 生成一张图, 画一张, 以图生图, 参考图, 带图提问, 4K, 超清, 高清, 4k, hd, vip, make an image, generate image, draw, create picture, text to image, image to image, img2img, image generation, DALL-E, stable diffusion, 图片处理, 图像处理, 图片生成, 图片理解."
+description: "PPB 绘图 skill。当用户需要生成图片、创建图像、AI绘画、文生图、图生图、参考图生成、4K超清输出、或进行带图提问的对话时使用。覆盖 /v1/images/generations（图片生成，支持参考图和4K）和 /v1/chat/completions（带图对话，支持多模态）两个接口。Trigger phrases: 生成图片, 画图, 文生图, AI绘画, 创建图像, 生成一张图, 画一张, 以图生图, 参考图, 带图提问, 4K, 超清, 高清, 4k, hd, vip, make an image, generate image, draw, create picture, text to image, image to image, img2img, image generation, DALL-E, stable diffusion, 图片处理, 图像处理, 图片生成, 图片理解."
 agent_created: true
 ---
 
-# Right Code Draw
+# PPB Draw
 
-统一入口 `https://www.right.codes/draw`，兼容 OpenAI 格式的图片生成与带图对话能力。
-
-官方文档：
-- 总览：https://docs.right.codes/docs/rc_extension/draw/
-- 图片生成：https://docs.right.codes/docs/rc_extension/draw/images-generations.html
-- 带图对话：https://docs.right.codes/docs/rc_extension/draw/chat-completions.html
-- 模型列表（后台）：https://docs.right.codes/docs/rc_quick_start/models.html
+AI 图片生成与带图对话能力，由 PPB 开发。
 
 ## 前置条件
 
 ### API Key
 
-需要有效的 Right Code API Key（格式 `sk-xxxxx`）。查找优先级：
+需要有效的 API Key（格式 `sk-xxxxx`）。查找优先级：
 
 1. 环境变量 `RIGHTCODE_API_KEY`
 2. 用户在对话中明确提供
@@ -36,7 +30,7 @@ Authorization: Bearer <API_KEY>
 
 ### 模型选择
 
-模型列表在 Right Code 后台动态管理（进入后台 → 模型列表），不在文档中静态列出。常见模型：
+模型列表由后台动态管理，常见模型：
 - 图片生成：`gpt-image-2`、`gpt-image-1`、`dall-e-3` 等（以后台实际显示为准）
 - 带图对话：`gemini-3.1-pro`、`gpt-4o`、`gemini-2.5-pro` 等（以后台实际显示为准）
 
@@ -345,5 +339,5 @@ Python CLI 工具，封装两个接口的调用。支持：
 - 图生图时参考图支持 URL 和 base64 两种格式
 - 生成图片可能需要数秒到数十秒，超时设为 120s
 - `stream` 参数在 chat completions 中为**必填**，非流式填 `false`
-- 支持的模型列表以 Right Code 后台实际显示为准，会动态更新
-- API Key 额度限制请参考 Right Code 后台
+- 支持的模型列表以后台实际显示为准，会动态更新
+- API Key 额度限制请参考后台
