@@ -1,5 +1,5 @@
 ---
-name: right-code-draw
+name: draw-ppb
 description: "Right Code 绘图 API skill。当用户需要生成图片、创建图像、AI绘画、文生图、图生图、参考图生成、4K超清输出、或进行带图提问的对话时使用。覆盖 /v1/images/generations（图片生成，支持参考图和4K）和 /v1/chat/completions（带图对话，支持多模态）两个接口。Trigger phrases: 生成图片, 画图, 文生图, AI绘画, 创建图像, 生成一张图, 画一张, 以图生图, 参考图, 带图提问, 4K, 超清, 高清, 4k, hd, vip, make an image, generate image, draw, create picture, text to image, image to image, img2img, image generation, DALL-E, stable diffusion, 图片处理, 图像处理, 图片生成, 图片理解."
 agent_created: true
 ---

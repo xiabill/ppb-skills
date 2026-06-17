@@ -1,6 +1,6 @@
 ---
-name: pdf-policy-field-update
-description: 通用 PDF 内容更新与公章处理。自动搜索替换字段（保持排版）+ 生成公章盖印到 PDF/DOCX 文档。
+name: pdf-edit-ppb
+description: 通用 PDF/DOCX 内容更新与公章处理。自动搜索替换字段（保持排版、字体一致）+ AI 生成公章盖印到文档。Trigger phrases: 保单修改, 替换字段, PDF编辑, 盖章, 加公章, 文档修改, 批单, pdf edit, stamp, seal。
 version: 3.0.0
 author: Hermes Agent + OpenClaw
 license: MIT
@@ -198,7 +198,7 @@ pip install Pillow numpy scipy weasyprint python-docx pdfplumber
 
 ## 依赖技能
 
-本模块公章生成依赖 **right-code-draw** skill（位于 `skills/right-code-draw/`），通过 `https://www.right.codes/draw/v1/images/generations` 接口生成公章图片。
+本模块公章生成依赖 **draw-ppb** skill（位于 `skills/draw-ppb/`），通过 `https://www.right.codes/draw/v1/images/generations` 接口生成公章图片。
 
 ### Right Code Draw API 配置
 
@@ -208,7 +208,7 @@ pip install Pillow numpy scipy weasyprint python-docx pdfplumber
 - **默认模型**: `gpt-image-2`
 - **输出尺寸**: `1024x1024`
 
-详细用法见 `skills/right-code-draw/SKILL.md`。
+详细用法见 `skills/draw-ppb/SKILL.md`。
 
 ## 完整工作流
 
@@ -217,7 +217,7 @@ pip install Pillow numpy scipy weasyprint python-docx pdfplumber
     ↓
 [1. 文档关系分析] ←── 关键：自动提取各方角色和公司名
     ↓
-[2. 公章生成] ← 调用 right-code-draw API 为每个角色生成公章
+[2. 公章生成] ← 调用 draw-ppb API 为每个角色生成公章
     ↓
 [3. 公章标准化] ← 等径对齐 + 透明化
     ↓
@@ -340,7 +340,7 @@ def analyze_document_relationships(full_text):
 
 ---
 
-### Step 2：公章生成（通过 right-code-draw API）
+### Step 2：公章生成（通过 draw-ppb API）
 
 **每个公司分别调用一次 API，不要用一个 prompt 生成全文档。**
 
@@ -397,11 +397,11 @@ def generate_seal(company_name):
     return out_path
 ```
 
-**如果不想直接用 urllib**，也可使用 `skills/right-code-draw/scripts/draw.py` CLI 工具：
+**如果不想直接用 urllib**，也可使用 `skills/draw-ppb/scripts/draw.py` CLI 工具：
 
 ```bash
 export RIGHTCODE_API_KEY="sk-xxxxx"
-python3 skills/right-code-draw/scripts/draw.py generate \
+python3 skills/draw-ppb/scripts/draw.py generate \
   --prompt "Chinese official company seal stamp..." \
   --size 1024x1024 \
   --output /tmp/seal_公司名.png
@@ -558,7 +558,7 @@ def auto_stamp_document(input_path, output_path):
     rel = analyze_document_relationships(full_text)
     print(f"检测到各方: {rel['parties']}")
     print(f"签章分配: {rel['assignments']}")
-    # 3. 生成公章（通过 right-code-draw API）
+    # 3. 生成公章（通过 draw-ppb API）
     seal_images = {}
     for company in rel["unique_companies"]:
         if not os.path.exists(f"/tmp/seal_{company}.png"):
